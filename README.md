@@ -35,6 +35,7 @@ The following code will inject the necessary dependencies:
 
 ```php
 use ZF\Doctrine\Query\Provider\QueryProviderAwareInterface;
+use ZF\Rest\ResourceEvent;
 
 // Add to createRepository function after the instance has been created.
 if ($instance instanceof QueryProviderAwareInterface && $instance->getQueryProviderAlias()) {
@@ -44,7 +45,7 @@ if ($instance instanceof QueryProviderAwareInterface && $instance->getQueryProvi
 
     $queryManager = $this->getServiceLocator()->get('ZfApigilityDoctrineQueryProviderManager');
     $queryProvider = $queryManager->get($instance->getQueryProviderAlias());
-    $queryProvider->setObjectManager($entityManager);
+    $queryProvider->setObjectManager($objectManager);
 
     $instance
         ->setResourceEvent($resourceEvent)
