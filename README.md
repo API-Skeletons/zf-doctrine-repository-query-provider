@@ -57,7 +57,7 @@ if ($instance instanceof QueryProviderAwareInterface && $instance->getQueryProvi
 Repository Configuration
 ------------------------
 
-To attach a Query Provider to a repository you must create implement `ZF\Doctrine\Query\Provider\QueryProviderAwareInterface`
+To attach a Query Provider to a repository you must implement `ZF\Doctrine\Query\Provider\QueryProviderAwareInterface`
 and use the trait `ZF\Doctrine\Query\Provider\QueryProviderAwareTrait` on each repository or an abstract your repositories inherit
 from.
 
@@ -115,3 +115,5 @@ $objectManager
     ->findAll()
     ;
 ```
+
+The findBy* functions also take arguments for sorting, limit, and offset.
