@@ -1,0 +1,41 @@
+{
+    "name": "api-skeletons/zf-doctrine-query-provider",
+    "description": "QueryProviders in Doctrine Repositories",
+    "type": "library",
+    "require": {
+        "zfcampus/zf-apigility-doctrine": "^2.1",
+        "zfcampus/zf-rest": "^1.3",
+        "doctrine/doctrine-orm-module"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^6.2"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Tom H Anderson",
+            "email": "tom.h.anderson@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "ZF\\Doctrine\\Query\\Provider\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "ZFTest\\Doctrine\\Query\\Provider\\": "test/"
+        }
+    },
+    "scripts": {
+        "check": [
+            "@cs-check",
+            "@test"
+        ],
+        "upload-coverage": "coveralls -v",
+        "cs-check": "phpcs",
+        "cs-fix": "phpcbf",
+        "test": "phpunit",
+        "test-coverage": "phpunit --coverage-clover clover.xml"
+    }
+}
