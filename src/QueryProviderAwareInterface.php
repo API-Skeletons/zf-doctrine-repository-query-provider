@@ -13,6 +13,7 @@ interface QueryProviderAwareInterface
     public function setQueryProvider(AbstractQueryProvider $queryProvider);
     public function getQueryProvider();
     public function findWithQueryProvider($id);
-#    public function findByWithQueryProvider($array, $sort);
-#    public function findAllWithQueryProvider();
+    public function findOneByWithQueryProvider(array $filters, array $sort = null, $limit = null, $offset = null, $parameters = null);
+    public function findByWithQueryProvider(array $filters, array $sort = null, $limit = null, $offset = null, $parameters = null);
+    public function findAllWithQueryProvider($parameters = null);
 }

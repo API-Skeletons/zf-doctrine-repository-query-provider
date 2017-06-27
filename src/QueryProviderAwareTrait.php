@@ -4,6 +4,7 @@ namespace ZF\Doctrine\Query\Provider;
 
 use ZF\Apigility\Doctrine\Server\Query\Provider\AbstractQueryProvider;
 use ZF\Rest\ResourceEvent;
+use Doctrine\ORM\QueryBuilder;
 
 trait QueryProviderAwareTrait
 {
@@ -55,6 +56,67 @@ trait QueryProviderAwareTrait
 
         return $queryBuilder->getQuery()->getOneOrNullResult();
     }
-#    public function findByWithQueryProvider($array, $sort);
-#    public function findAllWithQueryProvider();
+
+    public function findOneByWithQueryProvider(array $filters, array $sort = null, $limit = null, $offset = null, $parameters = null)
+    {
+        $queryBuilder = $this->getQueryProvider()->createQuery(
+            $this->getResourceEvent(),
+            $this->_entityName,
+            $parameters
+        );
+
+        $this->applyFindByParameters($queryBuilder, $filters, $sort, $limit, $offset);
+
+        return $queryBuilder->getQuery()->getOneOrNullResult();
+    }
+
+    public function findByWithQueryProvider(array $filters, array $sort = null, $limit = null, $offset = null, $parameters = null)
+    {
+        $queryBuilder = $this->getQueryProvider()->createQuery(
+            $this->getResourceEvent(),
+            $this->_entityName,
+            $parameters
+        );
+
+        $this->applyFindByParameters($queryBuilder, $filters, $sort, $limit, $offset);
+
+        return $queryBuilder->getQuery()->getResult();
+    }
+
+    public function findAllWithQueryProvider($parameters = null)
+    {
+        $queryBuilder = $this->getQueryProvider()->createQuery(
+            $this->getResourceEvent(),
+            $this->_entityName,
+            $parameters
+        );
+
+        return $queryBuilder->getQuery()->getResult();
+    }
+
+    private function applyFindByParameters(
+        QueryBuilder $queryBuilder,
+        array $filters,
+        array $sort = null,
+        $limit = null,
+        $offset = null
+    ) {
+        foreach ($filters as $field => $value) {
+            $queryBuilder->andWhere($queryBuilder->expr()->eq('row.' . $field, $value));
+        }
+
+        if ($sort) {
+            foreach ($sort as $field => $direction) {
+                $queryBuilder->addOrderBy('row.' . $field, $direction);
+            }
+        }
+
+        if ($offset) {
+            $queryBuilder->setFirstResult($offset);
+        }
+
+        if ($limit) {
+           $queryBuilder->setMaxResults($limit);
+        }
+    }
 }
