@@ -1,8 +1,9 @@
-zf-doctrine-query-provider
-==========================
+zf-doctrine-repository-query-provider
+=====================================
 
-Integrate [Doctrine in Apigility](https://github.com/zfcampus/zf-apigility-doctrine)
-Query Providers into Doctrine Repositories.
+A plugin for [zf-doctrine-repository](https://github.com/api-skeletons/zf-doctrine-repository)
+to integrate [Doctrine in Apigility](https://github.com/zfcampus/zf-apigility-doctrine)
+Query Providers.
 
 This allows you to fetch entities using the same business logic and filtering your Query Providers use.
 Useful for an RPC where an entity may be required and must have access to the current user.  Can be
@@ -18,7 +19,7 @@ Installation
 Installation of this module uses composer. For composer documentation, please refer to [getcomposer.org](http://getcomposer.org/).
 
 ```sh
-composer require api-skeletons/zf-doctrine-query-provider
+composer require api-skeletons/zf-doctrine-repository-query-provider
 ```
 
 
@@ -33,49 +34,9 @@ for instructions to do this.
 Once you have a factory for your repositories you will need to code the dependency injection for the provided interface.
 The following code will inject the necessary dependencies:
 
-```php
-use ZF\Doctrine\Query\Provider\QueryProviderAwareInterface;
-use ZF\Rest\ResourceEvent;
-
-// Add to createRepository function after the instance has been created.
-if ($instance instanceof QueryProviderAwareInterface && $instance->getQueryProviderAlias()) {
-    $resourceEvent = new ResourceEvent();
-    $resourceEvent->setIdentity($this->getServiceLocator()->get('Authentication')->getIdentity());
-    $resourceEvent->setRequest($this->getServiceLocator()->get('Request'));
-
-    $queryManager = $this->getServiceLocator()->get('ZfApigilityDoctrineQueryProviderManager');
-    $queryProvider = $queryManager->get($instance->getQueryProviderAlias());
-    $queryProvider->setObjectManager($objectManager);
-
-    $instance
-        ->setResourceEvent($resourceEvent)
-        ->setQueryProvider($queryProvider)
-        ;
-}
-```
-
 
 Repository Configuration
 ------------------------
-
-To attach a Query Provider to a repository you must implement `ZF\Doctrine\Query\Provider\QueryProviderAwareInterface`
-and use the trait `ZF\Doctrine\Query\Provider\QueryProviderAwareTrait` on each repository or an abstract your repositories inherit
-from.
-
-Next you must have a Query Provider for each repository.  These are part of
-[zfcampus/zf-apigility-doctrine](https://github.com/zfcampus/zf-apigility-doctrine) and the creation of each is outside the scope
-of this `README`.
-
-For each repository you wish to use with a Query Provider add this function:
-
-```php
-    public function getQueryProviderAlias()
-    {
-        return 'Database\Query\Provider\ProjectQueryProvider';
-    }
-```
-
-of course replacing the return value with the service locator alias for your Query Provider.
 
 
 Use
@@ -87,7 +48,8 @@ Return an entity by id or null
 ```php
 $objectManager
     ->getRepository('Database\Entity\Project')
-    ->findWithQueryProvider($id)
+    ->plugin('queryProvider')
+    ->find($id)
     ;
 ```
 
@@ -95,7 +57,8 @@ Return one entity based on filters
 ```php
 $objectManager
     ->getRepository('Database\Entity\Project')
-    ->findOneByWithQueryProvider([
+    ->plugin('queryProvider')
+    ->findOneBy([
         'name' => $name
     );
 ```
@@ -104,7 +67,8 @@ Return an array of entities based on filters
 ```php
 $objectManager
     ->getRepository('Database\Entity\Project')
-    ->findByWithQueryProvider([
+    ->plugin('queryProvider')
+    ->findBy([
         'name' => $name
     );
 ```
@@ -113,6 +77,7 @@ Return all entities the Query Provider provides
 ```php
 $objectManager
     ->getRepository('Database\Entity\Project')
+    ->plugin('queryProvider')
     ->findAll()
     ;
 ```

@@ -1,5 +1,5 @@
 {
-    "name": "api-skeletons/zf-doctrine-query-provider",
+    "name": "api-skeletons/zf-doctrine-repository-query-provider",
     "description": "QueryProviders in Doctrine Repositories",
     "type": "library",
     "require": {
@@ -19,12 +19,19 @@
     ],
     "autoload": {
         "psr-4": {
-            "ZF\\Doctrine\\Query\\Provider\\": "src/"
+            "ZF\\Doctrine\\Repository\\Query\\Provider\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "ZFTest\\Doctrine\\Query\\Provider\\": "test/"
+            "ZFTest\\Doctrine\\Repository\\Query\\Provider\\": "test/"
+        }
+    },
+    "extra": {
+        "zf": {
+            "module": [
+                "ZF\\Doctrine\\Repository\\Query\\Provider"
+            ]
         }
     },
     "scripts": {

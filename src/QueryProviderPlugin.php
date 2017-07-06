@@ -1,23 +1,21 @@
 <?php
 
-namespace ZF\Doctrine\Query\Provider;
+namespace ZF\Doctrine\Repository\Query\Provider;
 
-use ZF\Apigility\Doctrine\Server\Query\Provider\AbstractQueryProvider;
-use ZF\Rest\ResourceEvent;
-use Doctrine\ORM\QueryBuilder;
+use ZF\Doctrine\Repository\Plugin\PluginInterface;
 
-trait QueryProviderAwareTrait
+class QueryProviderPlugin implements
+    PluginInterface
 {
+    protected $repository;
+    protected $parameters;
     protected $resourceEvent;
     protected $queryProvider;
 
-    /**
-     * When null is returned the QueryProvider functionality
-     * will not be loaded in the repository by the factory.
-     */
-    public function getQueryProviderAlias()
+    public function __construct(array $creationOptions)
     {
-        return;
+        $this->repository = $creationOptions['repository'];
+        $this->parameters = $creationOptions['parameters'];
     }
 
     public function setResourceEvent(ResourceEvent $resourceEvent)
@@ -44,11 +42,11 @@ trait QueryProviderAwareTrait
         return $this->queryProvider;
     }
 
-    public function findWithQueryProvider($id, array $parameters = null)
+    public function find($id, array $parameters = null)
     {
         $queryBuilder = $this->getQueryProvider()->createQuery(
             $this->getResourceEvent(),
-            $this->_entityName,
+            $this->repository->getClassName(),
             $parameters
         );
 
@@ -57,11 +55,11 @@ trait QueryProviderAwareTrait
         return $queryBuilder->getQuery()->getOneOrNullResult();
     }
 
-    public function findOneByWithQueryProvider(array $filters, array $sort = null, $limit = null, $offset = null, $parameters = null)
+    public function findOneBy(array $filters, array $sort = null, $limit = null, $offset = null, $parameters = null)
     {
         $queryBuilder = $this->getQueryProvider()->createQuery(
             $this->getResourceEvent(),
-            $this->_entityName,
+            $this->repository->getClassName(),
             $parameters
         );
 
@@ -70,11 +68,11 @@ trait QueryProviderAwareTrait
         return $queryBuilder->getQuery()->getOneOrNullResult();
     }
 
-    public function findByWithQueryProvider(array $filters, array $sort = null, $limit = null, $offset = null, $parameters = null)
+    public function findBy(array $filters, array $sort = null, $limit = null, $offset = null, $parameters = null)
     {
         $queryBuilder = $this->getQueryProvider()->createQuery(
             $this->getResourceEvent(),
-            $this->_entityName,
+            $this->repository->getClassName(),
             $parameters
         );
 
@@ -83,11 +81,11 @@ trait QueryProviderAwareTrait
         return $queryBuilder->getQuery()->getResult();
     }
 
-    public function findAllWithQueryProvider($parameters = null)
+    public function findAll($parameters = null)
     {
         $queryBuilder = $this->getQueryProvider()->createQuery(
             $this->getResourceEvent(),
-            $this->_entityName,
+            $this->repository->getClassName(),
             $parameters
         );
 
@@ -120,3 +118,4 @@ trait QueryProviderAwareTrait
         }
     }
 }
+
