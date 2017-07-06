@@ -9,6 +9,6 @@ return [
         ],
         'factories' => [
             QueryBuilderPlugin::class => QueryBuilderPluginFactory::class,
-        ]
-    ]
-]
+        ],
+    ],
+];
