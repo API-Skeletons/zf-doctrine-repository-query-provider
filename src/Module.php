@@ -4,13 +4,16 @@ namespace ZF\Doctrine\Repository\Query\Provider;
 
 use Zend\ModuleManager\Feature\ConfigProviderInterface;
 use Zend\ModuleManager\Feature\DependencyIndicatorInterface;
-use Zend\ModuleManager\ModuleManagerInterface;
+use GianArb\Angry\Unclonable;
+use GianArb\Angry\Unserializable;
 
 class Module implements
     ConfigProviderInterface,
-    InitProviderInterface,
     DependencyIndicatorInterface
 {
+    use Unclonable;
+    use Unserializable;
+
     public function getConfig()
     {
         return include __DIR__ . '/../config/module.config.php';

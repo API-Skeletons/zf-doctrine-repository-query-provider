@@ -22,21 +22,24 @@ Installation of this module uses composer. For composer documentation, please re
 composer require api-skeletons/zf-doctrine-repository-query-provider
 ```
 
+Once installed, add `ZF\Doctrine\Repository\Query\Provider` to your list of modules inside
+`config/application.config.php` or `config/modules.config.php`.
 
-Repository Factory Configuration
---------------------------------
-
-This repository provides an interface and trait to be applied to a Doctrine repository.  By default Doctrine uses it's own
-repository factory to create repositories.  You will need to create a custom repository factory.  See the article
-[Dependency Injection in Doctrine Repositories](http://blog.tomhanderson.com/2016/01/dependency-injection-in-doctrine.html)
-for instructions to do this.
-
-Once you have a factory for your repositories you will need to code the dependency injection for the provided interface.
-The following code will inject the necessary dependencies:
+> ### zf-component-installer
+>
+> If you use [zf-component-installer](https://github.com/zendframework/zf-component-installer),
+> that plugin will install zf-doctrine-repository-query-provider as a module for you.
 
 
-Repository Configuration
-------------------------
+Configuration
+-------------
+
+This repository plugin provides access to `find`, `findOneBy`, `findBy`, and `findAll` using the query providers already
+a part of your application.
+
+To add entities with query providers you should copy file `config/zf-doctrine-repository-query-provider.global.php.dist`
+to your autoload directory and rename to `config/zf-doctrine-repository-query-provider.global.php` and add each entity
+you wish to use with this plugin to that configuration.
 
 
 Use

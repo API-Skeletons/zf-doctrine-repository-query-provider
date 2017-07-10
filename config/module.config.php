@@ -1,6 +1,6 @@
 <?php
 
-namespace ZF\Doctrine\Repository\Query\Builder;
+namespace ZF\Doctrine\Repository\Query\Provider;
 
 return [
     'zf-doctrine-repository-plugin' => [
@@ -8,7 +8,7 @@ return [
             'queryProvider' => QueryProviderPlugin::class,
         ],
         'factories' => [
-            QueryBuilderPlugin::class => QueryBuilderPluginFactory::class,
-        ],
+            QueryProviderPlugin::class => QueryProviderPluginFactory::class,
+        ]
     ],
 ];

@@ -2,11 +2,17 @@
 
 namespace ZF\Doctrine\Repository\Query\Provider;
 
+use Doctrine\ORM\QueryBuilder;
+use ZF\Apigility\Doctrine\Server\Query\Provider\AbstractQueryProvider;
 use ZF\Doctrine\Repository\Plugin\PluginInterface;
+use ZF\Rest\ResourceEvent;
+use GianArb\Angry\ClassDefence;
 
 class QueryProviderPlugin implements
     PluginInterface
 {
+    use ClassDefence;
+
     protected $repository;
     protected $parameters;
     protected $resourceEvent;
@@ -109,11 +115,11 @@ class QueryProviderPlugin implements
             }
         }
 
-        if ($offset) {
+        if (! is_null($offset)) {
             $queryBuilder->setFirstResult($offset);
         }
 
-        if ($limit) {
+        if (! is_null($limit)) {
            $queryBuilder->setMaxResults($limit);
         }
     }
