@@ -120,8 +120,7 @@ class QueryProviderPlugin implements
         }
 
         if (! is_null($limit)) {
-           $queryBuilder->setMaxResults($limit);
+            $queryBuilder->setMaxResults($limit);
         }
     }
 }
-

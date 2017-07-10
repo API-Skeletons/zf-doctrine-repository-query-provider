@@ -13,7 +13,7 @@ class QueryProviderPluginFactory implements FactoryInterface
     use Unclonable;
     use Unserializable;
 
-    public function __invoke(ContainerInterface $container, $requestedName, array $options = NULL)
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
         $instance = new $requestedName($options);
 
