@@ -23,7 +23,6 @@ matrix:
     - php: 7
       env:
         - DEPS=locked
-        - CS_CHECK=true
     - php: 7
       env:
         - DEPS=latest
@@ -55,7 +54,6 @@ install:
 
 script:
   - if [[ $TEST_COVERAGE == 'true' ]]; then composer test-coverage ; else composer test ; fi
-  - if [[ $CS_CHECK == 'true' ]]; then phpcs --standard=psr2 src ; fi
 
 after_script:
   - if [[ $TEST_COVERAGE == 'true' ]]; then composer upload-coverage ; fi

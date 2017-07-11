@@ -1,7 +1,7 @@
 zf-doctrine-repository-query-provider
 =====================================
 
-[![Build Status](https://travis-ci.org/api-skeletons/zf-doctrine-repository-query-provider.svg?branch=master)](https://travis-ci.org/api-skeletons/zf-doctrine-repository-query-provider)
+[![Build Status](https://travis-ci.org/API-Skeletons/zf-doctrine-repository-query-provider.svg?branch=master)](https://travis-ci.org/API-Skeletons/zf-doctrine-repository-query-provider)
 [![Total Downloads](https://poser.pugx.org/api-skeletons/zf-doctrine-repository-query-provider/downloads)](https://packagist.org/packages/api-skeletons/zf-doctrine-repository-query-provider)
 
 A plugin for [zf-doctrine-repository](https://github.com/api-skeletons/zf-doctrine-repository)
