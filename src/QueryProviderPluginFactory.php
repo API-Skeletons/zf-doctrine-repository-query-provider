@@ -23,9 +23,8 @@ class QueryProviderPluginFactory implements FactoryInterface
         $config = $container->get('config')['zf-doctrine-repository-query-provider'];
 
         $queryManager = $container->get('ZfApigilityDoctrineQueryProviderManager');
-        $queryProvider = $queryManager->get($config[$options['repository']->getClassName()]['query_provider']);
-        $objectManager = $container->get($config[$options['repository']->getClassName()]['object_manager']);
-        $queryProvider->setObjectManager($objectManager);
+        $queryProvider = $queryManager->get($config[$options['repository']->getClassName()]);
+        $queryProvider->setObjectManager($options['repository']->getObjectManager());
 
         $instance
             ->setResourceEvent($resourceEvent)

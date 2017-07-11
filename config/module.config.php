@@ -9,6 +9,9 @@ return [
         ],
         'factories' => [
             QueryProviderPlugin::class => QueryProviderPluginFactory::class,
-        ]
+        ],
+        'shared' => [
+            QueryProviderPlugin::class => false,
+        ],
     ],
 ];

@@ -2,10 +2,7 @@
 
 return [
     'zf-doctrine-repository-query-provider' => [
-#        'Db\Entity\User' => [
-#            'query_provider' => 'DbApi\Query\Provider\UserQueryProvider',
-#            'object_manager' => 'doctrine.entitymanager.orm_default',
-#        ],
+#        'Db\Entity\User' => 'DbApi\Query\Provider\UserQueryProvider',
     ],
 ];
 

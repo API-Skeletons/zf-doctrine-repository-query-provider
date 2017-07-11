@@ -2,10 +2,7 @@
 
 return [
     'zf-doctrine-repository-query-provider' => [
-        'ZFTest\Doctrine\Entity\User' => [
-            'query_provider' => 'TestApi\Query\Provider\UserQueryProvider',
-            'object_manager' => 'doctrine.entitymanager.orm_default',
-        ],
+        'ZFTest\Doctrine\Entity\User' => 'TestApi\Query\Provider\UserQueryProvider',
     ],
     'service_manager' => [
         'invokables' => [
